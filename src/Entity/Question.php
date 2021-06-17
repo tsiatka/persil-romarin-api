@@ -4,11 +4,20 @@ namespace App\Entity;
 
 use ApiPlatform\Core\Annotation\ApiResource;
 use App\Repository\QuestionRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
+use Symfony\Component\Serializer\Annotation\Groups;
 
 /**
- * @ApiResource()
+ * @ApiResource(
+ *  normalizationContext={"groups"={"choice:read"}},
+ *  denormalizationContext={"groups"={"choice:write"}})
+ * )
  * @ORM\Entity(repositoryClass=QuestionRepository::class)
+ * @UniqueEntity("ordre")
  */
 class Question
 {
@@ -21,18 +30,32 @@ class Question
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Groups({"choice:read", "choice:write"})
      */
     private $label;
 
     /**
-     * @ORM\Column(type="integer")
+     * @ORM\Column(type="integer", unique=true)*
+     * @Groups({"choice:read", "choice:write"})
      */
     private $ordre;
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Groups({"choice:read", "choice:write"})
      */
     private $type;
+
+    /**
+     * @Groups({"choice:read", "choice:write"})
+     * @ORM\OneToMany(targetEntity=Choice::class, mappedBy="question", cascade={"persist", "remove"}, orphanRemoval=true)
+     */
+    private $choice;
+
+    public function __construct()
+    {
+        $this->choice = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -71,6 +94,36 @@ class Question
     public function setType(string $type): self
     {
         $this->type = $type;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Choice[]
+     */
+    public function getChoice(): Collection
+    {
+        return $this->choice;
+    }
+
+    public function addChoice(Choice $choice): self
+    {
+        if (!$this->choice->contains($choice)) {
+            $this->choice[] = $choice;
+            $choice->setQuestion($this);
+        }
+
+        return $this;
+    }
+
+    public function removeChoice(Choice $choice): self
+    {
+        if ($this->choice->removeElement($choice)) {
+            // set the owning side to null (unless already changed)
+            if ($choice->getQuestion() === $this) {
+                $choice->setQuestion(null);
+            }
+        }
 
         return $this;
     }

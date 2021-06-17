@@ -1,0 +1,58 @@
+<div>
+{% for item in field.value %}
+				<div id="choice{{item.id}}" class="card">
+							<p>{{item.label}}</p>
+							<a target="_blank" href="{{ vich_uploader_asset(item, 'fichier') }}">{{item.nomFichierOriginal}}</a>
+							<div class="action-choices">
+								<a class="btn btn-primary" href="{{ ea_url().setController('App\\Controller\\Admin\\ChoiceCrudController').setAction('edit').setEntityId(item.id)}}">
+									<i class="fas fa-edit"></i>
+								</a>
+								<a class="btn btn-danger choice-delete" data-toggle="modal" data-target="#modal-delete{{item.id}}" data-entityid="{{item.id}}" data-url="{{ ea_url().setController('App\\Controller\\Admin\\ChoiceCrudController').setAction('delete').setEntityId(item.id) }}">
+									<i class="action-icon fas fa-trash-alt"></i>
+								</a>
+							</div>
+							<form method="post" id="delete-form{{item.id}}" style="display: none">
+								<input type="hidden" name="token" value="{{ csrf_token('ea-delete') }}">
+							</form>
+							<div id="modal-delete{{item.id}}" class="modal fade">
+								<div class="modal-dialog">
+									<div class="modal-content">
+										<div class="modal-body">
+											<h4>{{ 'delete_modal.title'|trans([], 'EasyAdminBundle') }}</h4>
+											<p>{{ 'delete_modal.content'|trans([], 'EasyAdminBundle') }}</p>
+										</div>
+										<div class="modal-footer">
+											<button type="button" data-dismiss="modal" class="btn btn-secondary">
+												<span class="btn-label">{{ 'action.cancel'|trans([], 'EasyAdminBundle') }}</span>
+											</button>
+											<button type="button" data-dismiss="modal" id="modal-delete-button{{item.id}}" class="btn btn-danger" form="delete-form{{item.id}}">
+												<i class="fa fa-fw fa-check"></i>
+												<span class="btn-label">Supprimer</span>
+											</button>
+										</div>
+									</div>
+								</div>
+							</div>
+					</div>
+				</div>
+	{% endfor %}
+		<a href="{{ ea_url().setRoute('addChoice', { clientid: entity.primaryKeyValue }) }}" class="add-entity btn btn-primary">
+			<i class="fas fa-file"></i>
+			Ajouter un nouveau choix
+		</a>
+</div>
+<script>
+	$('.choice-delete').on('click', function (e) {
+e.preventDefault();
+const url = $(this).attr('data-url');
+const id = $(this).attr('data-entityid');
+$('#modal-delete' + id).modal({backdrop: true, keyboard: true}).off('click', '#modal-delete-button' + id).on('click', '#modal-delete-button' + id, function () {
+let deleteForm = $('#delete-form' + id);
+deleteForm.attr('action', url);
+url2 = deleteForm.attr('action');
+jQuery.post(url2, deleteForm.serialize(), function (data) {
+$('#choice' + id).fadeOut();
+});
+});
+});
+</script>
