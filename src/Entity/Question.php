@@ -56,6 +56,10 @@ class Question
     {
         $this->choice = new ArrayCollection();
     }
+    public function __toString()
+    {
+        return $this->ordre . ' - ' . $this->label;
+    }
 
     public function getId(): ?int
     {

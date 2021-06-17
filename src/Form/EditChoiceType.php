@@ -16,7 +16,7 @@ class EditChoiceType extends AbstractType
     {
         $builder
             ->add('label', TextType::class, ['required' => true])
-            ->add('description', TextType::class)
+            ->add('description', TextType::class, ['required' => false])
             ->add('fichier', VichFileType::class, [
                 'label' => 'Image',
                 'required' => false,

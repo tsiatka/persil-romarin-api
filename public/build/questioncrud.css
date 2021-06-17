@@ -1,0 +1,63 @@
+/* */
+
+.form-group.not-required > .col-form-label.required:after {
+  content: "";
+}
+.add-entity {
+  margin: 20px auto;
+}
+.edit-entity {
+  margin-left: 10px;
+}
+.action-choices {
+  margin-top: 10px;
+}
+.choice-info.card-body {
+  display: flex;
+  justify-content: space-between;
+  padding: 0.7rem;
+}
+.optional .select2.select2-container.select2-container--bootstrap {
+  width: 350px !important;
+}
+.choice-list .card {
+  margin-bottom: 10px;
+}
+.blockquote-footer {
+  padding-top: 5px;
+}
+.choice-list .blockquote {
+  font-size: 1rem;
+}
+.choice-list .blockquote > p {
+  margin-bottom: 0;
+}
+
+/* couleur et taille form help */
+
+.field-collection-item small.form-help,
+.form-widget:focus-within small.form-help {
+  color: #878f97;
+  font-size: 80%;
+}
+
+dt {
+  width: 100%;
+}
+.field-collection-item .form-widget-compound {
+  width: 100%;
+}
+.field-collection-item .form-widget-compound textarea {
+  width: 100%;
+  max-width: 100%;
+}
+.dropdown-menu .btn.btn-secondary {
+  box-shadow: none;
+}
+.dropdown-menu .btn:not(:disabled):not(.disabled):not(.btn-link):hover {
+  box-shadow: none;
+}
+
+.field-collection-item .card {
+  margin: 15px;
+}

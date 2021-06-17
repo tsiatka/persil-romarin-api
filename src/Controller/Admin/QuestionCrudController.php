@@ -7,6 +7,7 @@ use App\Form\QuestionChoiceType;
 use App\Form\EditChoiceType;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Action;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Actions;
+use EasyCorp\Bundle\EasyAdminBundle\Config\Assets;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Crud;
 use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractCrudController;
 use EasyCorp\Bundle\EasyAdminBundle\Field\AssociationField;
@@ -22,6 +23,11 @@ class QuestionCrudController extends AbstractCrudController
     {
         return Question::class;
     }
+    public function configureAssets(Assets $assets): Assets
+    {
+        return $assets
+            ->addJsFile('build/questioncrud.js')->addCssFile('build/questioncrud.css');
+    }
     public function configureActions(Actions $actions): Actions
     {
         return $actions
@@ -35,9 +41,10 @@ class QuestionCrudController extends AbstractCrudController
             TextField::new('label', 'Label/Intitulé de la question'),
             ChoiceField::new('type', 'Type de question')->setChoices(
                 [
+                    'Bloc' => 'block',
                     'Choix multiples' => 'checkbox_multiple',
                     'Choix unique' => 'checkbox_unique',
-                    'Phrase à rentrer' => 'input'
+                    'Input/Texte à saisir' => 'input'
                 ]
             )
         ];
@@ -51,7 +58,7 @@ class QuestionCrudController extends AbstractCrudController
         }
         if ($pageName == Crud::PAGE_EDIT) {
             $fields[] = CollectionField::new('choice', 'Choix de réponses')->setEntryIsComplex(true)->setFormTypeOptions([
-                "allow_delete" => true, 'required' => false,
+                "allow_delete" => true, 'required' => true,
             ])->setEntryType(EditChoiceType::class)->addCssClass('not-required')->onlyWhenUpdating();
         }
         return $fields;

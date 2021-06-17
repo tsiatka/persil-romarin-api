@@ -1,8 +1,9 @@
-<div>
+<div class="choice-list">
 {% for item in field.value %}
 				<div id="choice{{item.id}}" class="card">
-							<p>{{item.label}}</p>
-							<a target="_blank" href="{{ vich_uploader_asset(item, 'fichier') }}">{{item.nomFichierOriginal}}</a>
+							<h4>{{item.label}}</h4>
+                            <p>{{item.description}}</p>
+							<img target="_blank" src="{{ vich_uploader_asset(item, 'fichier') }}">
 							<div class="action-choices">
 								<a class="btn btn-primary" href="{{ ea_url().setController('App\\Controller\\Admin\\ChoiceCrudController').setAction('edit').setEntityId(item.id)}}">
 									<i class="fas fa-edit"></i>
@@ -36,8 +37,8 @@
 					</div>
 				</div>
 	{% endfor %}
-		<a href="{{ ea_url().setRoute('addChoice', { clientid: entity.primaryKeyValue }) }}" class="add-entity btn btn-primary">
-			<i class="fas fa-file"></i>
+		<a href="{{ ea_url().setController('App\\Controller\\Admin\\ChoiceCrudController').setAction('new') }}" class="add-entity btn btn-primary">
+        <i class="fas fa-code-branch"></i>
 			Ajouter un nouveau choix
 		</a>
 </div>

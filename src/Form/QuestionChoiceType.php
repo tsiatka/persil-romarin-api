@@ -16,10 +16,10 @@ class QuestionChoiceType extends AbstractType
     {
         $builder
             ->add('label', TextType::class, ['required' => true])
-            ->add('description', TextType::class)
+            ->add('description', TextType::class, ['required' => false])
             ->add('fichier', VichFileType::class, [
                 'label' => 'Image',
-                'required' => true,
+                'required' => false,
                 'allow_delete' => false,
                 'download_label' => true,
                 'download_uri' => true,
