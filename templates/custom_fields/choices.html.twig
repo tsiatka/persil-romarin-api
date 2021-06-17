@@ -1,10 +1,12 @@
 <div class="choice-list">
 {% for item in field.value %}
 				<div id="choice{{item.id}}" class="card">
-							<h4>{{item.label}}</h4>
-                            <p>{{item.description}}</p>
-							<img target="_blank" src="{{ vich_uploader_asset(item, 'fichier') }}">
-							<div class="action-choices">
+                			<blockquote class="blockquote mb-0">
+                                <h4>{{item.label}}</h4>
+                                <p>{{item.description}}</p>
+                                <img class="img-fluid" target="_blank" src="{{ vich_uploader_asset(item, 'fichier') }}">
+							</blockquote>
+                            <div class="action-choices">
 								<a class="btn btn-primary" href="{{ ea_url().setController('App\\Controller\\Admin\\ChoiceCrudController').setAction('edit').setEntityId(item.id)}}">
 									<i class="fas fa-edit"></i>
 								</a>
@@ -35,12 +37,7 @@
 								</div>
 							</div>
 					</div>
-				</div>
 	{% endfor %}
-		<a href="{{ ea_url().setController('App\\Controller\\Admin\\ChoiceCrudController').setAction('new') }}" class="add-entity btn btn-primary">
-        <i class="fas fa-code-branch"></i>
-			Ajouter un nouveau choix
-		</a>
 </div>
 <script>
 	$('.choice-delete').on('click', function (e) {

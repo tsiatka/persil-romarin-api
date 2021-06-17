@@ -67,6 +67,12 @@ class Choice
      */
     private $question;
 
+    public function __construct()
+    {
+        $this->setDateDeModification(new \DateTime());
+        $this->setDateDeCreation(new \DateTime());
+    }
+
     public function getId(): ?int
     {
         return $this->id;

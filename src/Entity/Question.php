@@ -13,8 +13,9 @@ use Symfony\Component\Serializer\Annotation\Groups;
 
 /**
  * @ApiResource(
+ *  attributes={"order"={"ordre": "ASC"}},
  *  normalizationContext={"groups"={"choice:read"}},
- *  denormalizationContext={"groups"={"choice:write"}})
+ *  denormalizationContext={"groups"={"choice:write"}},
  * )
  * @ORM\Entity(repositoryClass=QuestionRepository::class)
  * @UniqueEntity("ordre")
