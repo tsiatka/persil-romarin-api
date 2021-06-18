@@ -11,12 +11,14 @@ use EasyCorp\Bundle\EasyAdminBundle\Config\Assets;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Crud;
 use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractCrudController;
 use EasyCorp\Bundle\EasyAdminBundle\Field\AssociationField;
+use EasyCorp\Bundle\EasyAdminBundle\Field\BooleanField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\ChoiceField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\CollectionField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\IntegerField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\NumberField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\TextField;
 use EasyCorp\Bundle\EasyAdminBundle\Router\CrudUrlGenerator;
+use phpDocumentor\Reflection\Types\Boolean;
 
 class QuestionCrudController extends AbstractCrudController
 {
@@ -35,17 +37,23 @@ class QuestionCrudController extends AbstractCrudController
         return $actions
             ->add(Crud::PAGE_INDEX, Action::DETAIL);
     }
-
+    public function configureCrud(Crud $crud): Crud
+    {
+        return $crud->setDefaultSort(['ordre' => 'ASC']);
+    }
     public function configureFields(string $pageName): iterable
     {
         $fields =  [
             IntegerField::new('ordre', 'Ordre de la question')->setFormTypeOptions(['attr' => ['min' => 1]]),
+            BooleanField::new('requis', 'Obligatoire'),
             TextField::new('label', 'Label/Intitulé de la question'),
+            TextField::new('description', 'Description de la question'),
             ChoiceField::new('type', 'Type de question')->setChoices(
                 [
                     'Bloc' => 'block',
                     'Choix multiples' => 'checkbox_multiple',
                     'Choix unique' => 'checkbox_unique',
+                    'Select' => 'select',
                     'Input/Texte à saisir' => 'input'
                 ]
             )

@@ -53,6 +53,23 @@ class Question
      */
     private $choice;
 
+    /**
+     * @ORM\OneToOne(targetEntity=Data::class, mappedBy="question", cascade={"persist", "remove"})
+     */
+    private $data;
+
+    /**
+     * @Groups({"choice:read", "choice:write"})
+     * @ORM\Column(type="boolean", nullable=true)
+     */
+    private $requis;
+
+    /**
+     * @Groups({"choice:read", "choice:write"})
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $description;
+
     public function __construct()
     {
         $this->choice = new ArrayCollection();
@@ -129,6 +146,47 @@ class Question
                 $choice->setQuestion(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getData(): ?Data
+    {
+        return $this->data;
+    }
+
+    public function setData(Data $data): self
+    {
+        // set the owning side of the relation if necessary
+        if ($data->getQuestion() !== $this) {
+            $data->setQuestion($this);
+        }
+
+        $this->data = $data;
+
+        return $this;
+    }
+
+    public function getRequis(): ?bool
+    {
+        return $this->requis;
+    }
+
+    public function setRequis(?bool $requis): self
+    {
+        $this->requis = $requis;
+
+        return $this;
+    }
+
+    public function getDescription(): ?string
+    {
+        return $this->description;
+    }
+
+    public function setDescription(?string $description): self
+    {
+        $this->description = $description;
 
         return $this;
     }
