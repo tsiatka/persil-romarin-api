@@ -44,11 +44,11 @@ class QuestionCrudController extends AbstractCrudController
     public function configureFields(string $pageName): iterable
     {
         $fields =  [
-            IntegerField::new('ordre', 'Ordre de la question')->setFormTypeOptions(['attr' => ['min' => 1]]),
-            BooleanField::new('requis', 'Obligatoire'),
-            TextField::new('label', 'Label/Intitulé de la question'),
-            TextField::new('description', 'Description de la question'),
-            ChoiceField::new('type', 'Type de question')->setChoices(
+            IntegerField::new('ordre', 'Ordre')->setFormTypeOptions(['attr' => ['min' => 1]])->setHelp('Position de la question dans le Quiz'),
+            BooleanField::new('requis', 'Obligatoire')->setFormTypeOptionIfNotSet('label_attr.class', 'switch-custom')->setHelp('Question obligatoire ou facultative dans le Quiz'),
+            TextField::new('label', 'Label')->setHelp('Intitulé de la question'),
+            TextField::new('description', 'Description')->setHelp('Intitulé de la question'),
+            ChoiceField::new('type', 'Type de question')->renderAsNativeWidget(true)->setChoices(
                 [
                     'Bloc' => 'block',
                     'Choix multiples' => 'checkbox_multiple',

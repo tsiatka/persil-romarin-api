@@ -1,0 +1,22 @@
+{# @var ea \EasyCorp\Bundle\EasyAdminBundle\Context\AdminContext #}
+{# @var field \EasyCorp\Bundle\EasyAdminBundle\Dto\FieldDto #}
+{# @var entity \EasyCorp\Bundle\EasyAdminBundle\Dto\EntityDto #}
+	{% if vich_uploader_asset(entity.instance) is not null %}
+		{% if vich_uploader_asset(entity.instance) ends with 'jpg' or vich_uploader_asset(entity.instance) ends with 'PNG' or vich_uploader_asset(entity.instance) ends with 'png' or vich_uploader_asset(entity.instance) ends with 'gif' or vich_uploader_asset(entity.instance) ends with 'jpeg' %}
+			<img data-toggle="modal" style="width: 300px;"data-target=".modal{{entity.primaryKeyValue}}" class='img-fluid' src="{{ vich_uploader_asset(entity.instance) }}">
+			<div class="modal fade modal{{entity.primaryKeyValue}}" tabindex=" -1" role=" dialog" aria-hidden=" true">
+				<div class="modal-dialog" role="document">
+					<div class="modal-content">
+						<div class="modal-body">
+							<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+								<span aria-hidden="true">&times;</span>
+							</button>
+							<img class="img-fluid" src="{{ vich_uploader_asset(entity.instance) }}">
+						</div>
+					</div>
+				</div>
+			</div>
+		{% endif %}
+	{% else %}
+		<a target="_blank" href="{{ vich_uploader_asset(entity.instance) }}">{{field.value}}</a>
+	{% endif %}
