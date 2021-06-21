@@ -1,6 +1,4 @@
 api_platform:
-  formats:
-    json: ["application/json"]
   mapping:
     paths: ["%kernel.project_dir%/src/Entity"]
   patch_formats:
