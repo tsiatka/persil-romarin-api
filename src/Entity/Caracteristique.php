@@ -27,12 +27,14 @@ class Caracteristique
 
     /**
      * @ORM\ManyToOne(targetEntity=Data::class, inversedBy="caracteristiques")
+     * @Groups({"caract:read", "caract:write"})
      * @ORM\JoinColumn(nullable=false)
      */
     private $data;
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Groups({"caract:read", "caract:write"})
      */
     private $contenu;
 

@@ -9,7 +9,10 @@ use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * @ApiResource()
+ * @ApiResource(
+ *  normalizationContext={"groups"={"caract:read"}},
+ *  denormalizationContext={"groups"={"caract:write"}},
+ * )
  * @ORM\Entity(repositoryClass=ClientRepository::class)
  */
 class Client
@@ -28,6 +31,7 @@ class Client
 
     /**
      * @ORM\OneToMany(targetEntity=Caracteristique::class, mappedBy="client", cascade={"persist", "remove"})
+     * @Groups({"caract:read", "caract:write"})
      */
     private $caracteristiques;
 
