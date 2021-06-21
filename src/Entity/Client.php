@@ -26,6 +26,7 @@ class Client
     private $id;
 
     /**
+     * @Groups({"caract:read", "caract:write"})
      * @ORM\Column(type="string", length=255)
      */
     private $email;
