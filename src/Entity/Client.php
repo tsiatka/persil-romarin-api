@@ -22,6 +22,7 @@ class Client
      * @ORM\Id
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
+     * @Groups({"caract:read", "caract:write"})
      */
     private $id;
 
