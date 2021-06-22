@@ -66,7 +66,7 @@ class QuestionCrudController extends AbstractCrudController
                     'Select' => 'select',
                     'Email' => 'email',
                     'Date' => 'date',
-                    'Input/Texte à saisir' => 'input',
+                    'Input Question 1' => 'input',
                     'Input/Texte à saisir' => 'input1',
                     '2 Input' => 'input2'
                 ]
