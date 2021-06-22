@@ -1,6 +1,9 @@
 {% extends 'base.html.twig' %}
-
-{% block title %}Log in!{% endblock %}
+{% block stylesheets %}
+            {{ parent() }}
+            <link href="{{ asset('build/login.css') }}" rel="stylesheet" />
+{% endblock %}
+{% block title %}Se connecter à Persil & Romarin{% endblock %}
 
 {% block body %}
 <form method="post">
@@ -14,11 +17,10 @@
         </div>
     {% endif %}
 
-    <h1 class="h3 mb-3 font-weight-normal">Merci de se connecter</h1>
-    <label for="inputUsername">Nom d'utilsateur</label>
-    <input type="text" value="{{ last_username }}" name="username" id="inputUsername" class="form-control" autocomplete="username" required autofocus>
-    <label for="inputPassword">Mot de passe</label>
-    <input type="password" name="password" id="inputPassword" class="form-control" autocomplete="current-password" required>
+    <img src={{ asset('/images/logo.svg') }}>
+    <h1 class="h3 mb-3 font-weight-normal">Merci de vous connecter</h1>
+    <input type="text" placeholder="Nom d'utilsateur" value="{{ last_username }}" name="username" id="inputUsername" class="form-control" autocomplete="username" required autofocus>
+    <input type="password" placeholder="Mot de passe" name="password" id="inputPassword" class="form-control" autocomplete="current-password" required>
 
     <input type="hidden" name="_csrf_token"
            value="{{ csrf_token('authenticate') }}"

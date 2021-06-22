@@ -1,0 +1,155 @@
+@font-face {
+  font-family: "Recoleta";
+  src: url("./../fonts/Recoleta/Recoleta-Regular.ttf") format("truetype");
+  font-weight: 400;
+  font-style: normal;
+}
+@font-face {
+  font-family: "Riposte";
+  src: url("./../fonts/Riposte/Riposte-Regular.otf") format("opentype");
+  font-weight: 400;
+  font-style: normal;
+}
+body {
+  background-color: #fff5eb;
+  font-family: "Riposte";
+}
+h1,
+h2,
+h3,
+H4,
+h5,
+h6 {
+  font-family: "Recoleta";
+}
+.logoTitle {
+  width: 6em;
+}
+.accueil {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  height: 60vh;
+}
+
+.wrapper {
+  margin: 0px;
+  width: 100%;
+  grid-row-gap: 0px;
+}
+.main-sidebar {
+  width: 225px;
+  background-color: #15433d;
+  padding-top: 16px;
+}
+#main-menu {
+  display: flex;
+  justify-content: center;
+}
+@media (min-width: 1024px) {
+  .main-sidebar {
+    max-width: 225px;
+  }
+}
+
+@media (min-width: 1280px) {
+  .wrapper {
+    grid-column-gap: 0px;
+  }
+}
+@media (min-width: 1024px) {
+  .wrapper {
+    grid-column-gap: 0px;
+  }
+}
+.content-wrapper {
+  margin-top: 0;
+  padding: 25px;
+  grid-template-columns: 0 auto 0;
+  min-height: 100vh;
+}
+#sidebar-resizer-handler {
+  display: none;
+}
+#content-resizer-handler {
+  display: none;
+}
+header {
+  background-color: #15433d;
+}
+.content-header {
+  background-color: #fff5eb;
+}
+.content-header:before,
+.content-header:after {
+  background-color: #fff5eb;
+}
+.main-header #header-logo {
+  margin: 20px;
+  margin-left: 40px;
+}
+.content-top.navbar-custom-menu {
+  display: flex;
+  margin: 20px;
+}
+.user.user-menu-wrapper {
+  color: white;
+}
+.fa.fa-fw.fa-user-circle.user-avatar {
+  color: white;
+}
+#main-menu .menu a {
+  color: white;
+}
+#main-menu .menu .menu-icon {
+  color: white;
+}
+#navigation-toggler {
+  color: white;
+  margin-left: 20px;
+}
+.btn.btn-primary {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  padding: 12px 20px;
+  position: static;
+  height: 43px;
+  left: 0px;
+  top: 0px;
+  background: #151515;
+  border-radius: 2px;
+  flex: none;
+  order: 0;
+  flex-grow: 0;
+  color: white;
+  border: none;
+  box-shadow: 8px 8px 0px rgba(134, 23, 25, 0.1);
+  font-family: "Riposte";
+}
+.content-header-title {
+  align-self: center;
+}
+.ea h1.title {
+  font-size: 1.5rem;
+}
+.btn-primary,
+.btn-primary:hover,
+.btn-primary:not(:disabled):not(.disabled):active,
+.btn-primary:not(:disabled):not(.disabled):active:focus,
+.btn-primary:not(:disabled):not(.disabled):focus {
+  background-color: #151515;
+  color: var(--text-on-primary);
+  box-shadow: 8px 8px 0px rgba(134, 23, 25, 0.1);
+}
+.btn:not(:disabled):not(.disabled):not(.btn-link):active,
+.btn:not(:disabled):not(.disabled):not(.btn-link):active:focus,
+.btn:not(:disabled):not(.disabled):not(.btn-link):focus,
+.btn:not(:disabled):not(.disabled):not(.btn-link):hover {
+  box-shadow: 8px 8px 0px rgba(134, 23, 25, 0.1);
+}
+.content-header .page-actions .btn {
+  margin-left: 25px;
+}
