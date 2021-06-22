@@ -13,9 +13,9 @@ use Symfony\Component\Serializer\Annotation\Groups;
 
 /**
  * @ApiResource(
- *  attributes={"order"={"ordre": "ASC"}},
- *  normalizationContext={"groups"={"choice:read"}},
- *  denormalizationContext={"groups"={"choice:write"}},
+ *  attributes={"order"={"ordre": "ASC"}, "force_eager"=false},
+ *  normalizationContext={"groups"={"choice:read"}, "enable_max_depth"=true},
+ *  denormalizationContext={"groups"={"choice:write"}, "enable_max_depth"=true},
  * )
  * @ORM\Entity(repositoryClass=QuestionRepository::class)
  * @UniqueEntity("ordre")
@@ -48,7 +48,6 @@ class Question
     private $type;
 
     /**
-     * @Groups({"choice:read", "choice:write"})
      * @ORM\OneToMany(targetEntity=Choice::class, mappedBy="question", cascade={"persist", "remove"}, orphanRemoval=true)
      */
     private $choice;
@@ -69,6 +68,11 @@ class Question
      * @ORM\Column(type="string", length=255, nullable=true)
      */
     private $description;
+
+    /**
+     * @ORM\Column(type="boolean", nullable=true)
+     */
+    private $progress;
 
     public function __construct()
     {
@@ -187,6 +191,18 @@ class Question
     public function setDescription(?string $description): self
     {
         $this->description = $description;
+
+        return $this;
+    }
+
+    public function getProgress(): ?bool
+    {
+        return $this->progress;
+    }
+
+    public function setProgress(?bool $progress): self
+    {
+        $this->progress = $progress;
 
         return $this;
     }

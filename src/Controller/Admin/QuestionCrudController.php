@@ -16,6 +16,8 @@ use EasyCorp\Bundle\EasyAdminBundle\Field\ChoiceField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\CollectionField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\IntegerField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\NumberField;
+use EasyCorp\Bundle\EasyAdminBundle\Field\TextareaField;
+use EasyCorp\Bundle\EasyAdminBundle\Field\TextEditorField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\TextField;
 use EasyCorp\Bundle\EasyAdminBundle\Router\CrudUrlGenerator;
 use phpDocumentor\Reflection\Types\Boolean;
@@ -46,8 +48,9 @@ class QuestionCrudController extends AbstractCrudController
         $fields =  [
             IntegerField::new('ordre', 'Ordre')->setFormTypeOptions(['attr' => ['min' => 1]])->setHelp('Position de la question dans le Quiz'),
             BooleanField::new('requis', 'Obligatoire')->setFormTypeOptionIfNotSet('label_attr.class', 'switch-custom')->setHelp('Question obligatoire ou facultative dans le Quiz'),
+            BooleanField::new('progress', 'ProgressBar')->setFormTypeOptionIfNotSet('label_attr.class', 'switch-custom')->setHelp('Si cochée, cette question fera avancer la barre de progression du Quiz'),
             TextField::new('label', 'Label')->setHelp('Intitulé de la question'),
-            TextField::new('description', 'Description')->setHelp('Intitulé de la question'),
+            TextareaField::new('description', 'Description')->setHelp('Intitulé de la question'),
             ChoiceField::new('type', 'Type de question')->renderAsNativeWidget(true)->setChoices(
                 [
                     'Bloc' => 'block',
@@ -64,7 +67,7 @@ class QuestionCrudController extends AbstractCrudController
         if ($pageName == Crud::PAGE_NEW  || $pageName == Crud::PAGE_EDIT) {
             $fields[] = CollectionField::new('choice', 'Choix de réponses')->setEntryIsComplex(true)->setFormTypeOptions([
                 "allow_delete" => true, 'required' => true,
-            ])->setEntryType(QuestionChoiceType::class)->addCssClass('not-required')->onlyWhenCreating();
+            ])->setEntryType(QuestionChoiceType::class)->onlyWhenCreating();
         }
         if ($pageName == Crud::PAGE_EDIT) {
             $fields[] = CollectionField::new('choice', 'Choix de réponses')->setEntryIsComplex(true)->setFormTypeOptions([

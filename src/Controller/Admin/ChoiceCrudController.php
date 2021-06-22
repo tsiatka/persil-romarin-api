@@ -8,6 +8,7 @@ use EasyCorp\Bundle\EasyAdminBundle\Field\AssociationField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\TextField;
 use App\Field\VichImageField;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Crud;
+use EasyCorp\Bundle\EasyAdminBundle\Field\TextareaField;
 
 class ChoiceCrudController extends AbstractCrudController
 {
@@ -23,15 +24,18 @@ class ChoiceCrudController extends AbstractCrudController
             AssociationField::new('question', 'Lié à la question')->setFormTypeOptions([
                 'required' => true,
             ]),
+            AssociationField::new('nextStep', 'Question suivante')->setFormTypeOptions([
+                'required' => true,
+            ]),
             TextField::new('label'),
-            TextField::new('description'),
+            TextareaField::new('description'),
         ];
         if ($pageName == Crud::PAGE_DETAIL) {
             $fields[] = VichImageField::new('nomFichierOriginal', 'Image');
         }
         if ($pageName == Crud::PAGE_NEW) {
             $fields[] = VichImageField::new('fichier', "Image")->setFormTypeOptions([
-                'required' => true,
+                'required' => false,
             ]);
         }
         if ($pageName == Crud::PAGE_EDIT) {

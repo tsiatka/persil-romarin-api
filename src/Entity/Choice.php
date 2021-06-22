@@ -25,14 +25,12 @@ class Choice
     private $id;
 
     /**
-     * @ORM\Column(type="string", length=255)
-     * @Groups({"choice:read", "choice:write"})
+     * @ORM\Column(type="string", length=255, nullable=true)
      */
     private $label;
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
-     * @Groups({"choice:read", "choice:write"})
      */
     private $description;
 
@@ -47,9 +45,8 @@ class Choice
     private $dateDeModification;
     /**
      * @ORM\Column(type="string", length=200, nullable=true)
-     * @Groups({"choice:read", "choice:write"})
      */
-    private $nomFichier;
+    private $images;
 
     /**
      * @ORM\Column(type="string", length=200, nullable=true)
@@ -57,8 +54,7 @@ class Choice
     private $nomFichierOriginal;
 
     /**
-     * @Vich\UploadableField(mapping="choice_image", fileNameProperty="nomFichier", originalName="nomFichierOriginal")
-     * @Groups({"choice:read", "choice:write"})
+     * @Vich\UploadableField(mapping="choice_image", fileNameProperty="images", originalName="nomFichierOriginal")
      */
     private $fichier;
 
@@ -66,6 +62,13 @@ class Choice
      * @ORM\ManyToOne(targetEntity=Question::class, inversedBy="choice")
      */
     private $question;
+
+    /**
+     * @ORM\OneToOne(targetEntity=Question::class, cascade={"persist", "remove"})
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $nextStep;
+
 
     public function __construct()
     {
@@ -83,7 +86,7 @@ class Choice
         return $this->label;
     }
 
-    public function setLabel(string $label): self
+    public function setLabel(?string $label): self
     {
         $this->label = $label;
 
@@ -137,14 +140,14 @@ class Choice
         return $this;
     }
 
-    public function getNomFichier(): ?string
+    public function getImages(): ?string
     {
-        return $this->nomFichier;
+        return $this->images;
     }
 
-    public function setNomFichier(?string $nomFichier): self
+    public function setImages(?string $images): self
     {
-        $this->nomFichier = $nomFichier;
+        $this->images = $images;
 
         return $this;
     }
@@ -180,6 +183,18 @@ class Choice
     public function setQuestion(?Question $question): self
     {
         $this->question = $question;
+
+        return $this;
+    }
+
+    public function getNextStep(): ?Question
+    {
+        return $this->nextStep;
+    }
+
+    public function setNextStep(Question $nextStep): self
+    {
+        $this->nextStep = $nextStep;
 
         return $this;
     }

@@ -3,6 +3,8 @@
 namespace App\Form;
 
 use App\Entity\Choice;
+use App\Entity\Question;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -15,7 +17,8 @@ class EditChoiceType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('label', TextType::class, ['required' => true])
+            ->add('nextStep', EntityType::class, ['class' => Question::class, 'required' => true])
+            ->add('label', TextType::class, ['required' => false])
             ->add('description', TextType::class, ['required' => false])
             ->add('fichier', VichFileType::class, [
                 'label' => 'Image',
