@@ -4,6 +4,8 @@ namespace App\Entity;
 
 use ApiPlatform\Core\Annotation\ApiResource;
 use App\Repository\ChoiceRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Vich\UploaderBundle\Mapping\Annotation as Vich;
 use Symfony\Component\HttpFoundation\File\File;
 use Doctrine\ORM\Mapping as ORM;
@@ -64,11 +66,9 @@ class Choice
     private $question;
 
     /**
-     * @ORM\OneToOne(targetEntity=Question::class, cascade={"persist", "remove"})
-     * @ORM\JoinColumn(nullable=false)
+     * @ORM\ManyToOne(targetEntity=Question::class)
      */
     private $nextStep;
-
 
     public function __construct()
     {
@@ -192,7 +192,7 @@ class Choice
         return $this->nextStep;
     }
 
-    public function setNextStep(Question $nextStep): self
+    public function setNextStep(?Question $nextStep): self
     {
         $this->nextStep = $nextStep;
 

@@ -74,9 +74,21 @@ class Question
      */
     private $progress;
 
+    /**
+     * @ORM\OneToMany(targetEntity=Placeholder::class, mappedBy="question", cascade={"persist", "remove"})
+     */
+    private $placeholders;
+
+    /**
+     * @Groups({"choice:read", "choice:write"})
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $dataName;
+
     public function __construct()
     {
         $this->choice = new ArrayCollection();
+        $this->placeholders = new ArrayCollection();
     }
     public function __toString()
     {
@@ -203,6 +215,48 @@ class Question
     public function setProgress(?bool $progress): self
     {
         $this->progress = $progress;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Placeholder[]
+     */
+    public function getPlaceholders(): Collection
+    {
+        return $this->placeholders;
+    }
+
+    public function addPlaceholder(Placeholder $placeholder): self
+    {
+        if (!$this->placeholders->contains($placeholder)) {
+            $this->placeholders[] = $placeholder;
+            $placeholder->setQuestion($this);
+        }
+
+        return $this;
+    }
+
+    public function removePlaceholder(Placeholder $placeholder): self
+    {
+        if ($this->placeholders->removeElement($placeholder)) {
+            // set the owning side to null (unless already changed)
+            if ($placeholder->getQuestion() === $this) {
+                $placeholder->setQuestion(null);
+            }
+        }
+
+        return $this;
+    }
+
+    public function getDataName(): ?string
+    {
+        return $this->dataName;
+    }
+
+    public function setDataName(?string $dataName): self
+    {
+        $this->dataName = $dataName;
 
         return $this;
     }

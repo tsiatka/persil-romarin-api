@@ -1,16 +1,14 @@
 <div class="choice-list">
 {% for item in field.value %}
-				<div id="choice{{item.id}}" class="card">
-                			<blockquote class="blockquote mb-0">
-                                <h4>{{item.label}}</h4>
-                                <p>{{item.description}}</p>
-                                <img class="img-fluid" target="_blank" src="{{ vich_uploader_asset(item, 'fichier') }}">
-							</blockquote>
-                            <div class="action-choices">
-								<a class="btn" href="{{ ea_url().setController('App\\Controller\\Admin\\ChoiceCrudController').setAction('edit').setEntityId(item.id)}}">
+						<div id="placeholder{{item.id}}">
+								<blockquote class="blockquote">
+                                <p>{{item.contenu}}</p>
+								</blockquote>
+                                <div class="action-choices">
+								<a class="btn" href="{{ ea_url().setController('App\\Controller\\Admin\\PlaceholderCrudController').setAction('edit').setEntityId(item.id)}}">
 									<i class="fas fa-edit"></i>
 								</a>
-								<a class="btn btn-danger choice-delete" data-toggle="modal" data-target="#modal-delete{{item.id}}" data-entityid="{{item.id}}" data-url="{{ ea_url().setController('App\\Controller\\Admin\\ChoiceCrudController').setAction('delete').setEntityId(item.id) }}">
+								<a class="btn btn-danger placeholder-delete" data-toggle="modal" data-target="#modal-delete{{item.id}}" data-entityid="{{item.id}}" data-url="{{ ea_url().setController('App\\Controller\\Admin\\PlaceholderCrudController').setAction('delete').setEntityId(item.id) }}">
 									<i class="action-icon fas fa-trash-alt"></i>
 								</a>
 							</div>
@@ -40,7 +38,7 @@
 	{% endfor %}
 </div>
 <script>
-	$('.choice-delete').on('click', function (e) {
+	$('.placeholder-delete').on('click', function (e) {
 e.preventDefault();
 const url = $(this).attr('data-url');
 const id = $(this).attr('data-entityid');
@@ -49,7 +47,7 @@ let deleteForm = $('#delete-form' + id);
 deleteForm.attr('action', url);
 url2 = deleteForm.attr('action');
 jQuery.post(url2, deleteForm.serialize(), function (data) {
-$('#choice' + id).fadeOut();
+$('#placeholder' + id).fadeOut();
 });
 });
 });

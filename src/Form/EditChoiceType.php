@@ -17,7 +17,7 @@ class EditChoiceType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('nextStep', EntityType::class, ['class' => Question::class, 'required' => true])
+            ->add('nextStep', EntityType::class, ['class' => Question::class, 'required' => true, 'label' => 'Question suivante'])
             ->add('label', TextType::class, ['required' => false])
             ->add('description', TextType::class, ['required' => false])
             ->add('fichier', VichFileType::class, [

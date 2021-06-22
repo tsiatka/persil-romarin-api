@@ -39,11 +39,24 @@ final class ApiNormalizer implements NormalizerInterface, DenormalizerInterface,
 
     $data = $this->decoratedNormalizer->normalize($object, $format, $context);
     if (is_array($data) && $object instanceof Question) {
+      foreach ($object->getPlaceholders() as $i => $placeholder) {
+        if ($placeholder->getContenu()) {
+          $data['placeholders'][$i] = $placeholder->getContenu();
+        }
+      }
       foreach ($object->getChoice() as $i => $choice) {
-        $data['choices'][$i]['nextStep'] = $choice->getNextStep()->getOrdre();
-        $data['choices'][$i]['label'] = $choice->getLabel();
-        $data['choices'][$i]['description'] = $choice->getDescription();
-        $data['choices'][$i]['images'] = $choice->getImages();
+        if ($choice->getNextStep()) {
+          $data['choices'][$i]['nextStep'] = $choice->getNextStep()->getOrdre();
+        }
+        if ($choice->getLabel()) {
+          $data['choices'][$i]['label'] = $choice->getLabel();
+        }
+        if ($choice->getDescription()) {
+          $data['choices'][$i]['description'] = $choice->getDescription();
+        }
+        if ($choice->getImages()) {
+          $data['choices'][$i]['images'] = $choice->getImages();
+        }
       }
     }
     return $data;
