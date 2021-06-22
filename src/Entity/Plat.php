@@ -53,9 +53,9 @@ class Plat
     private $fichier;
 
     /**
-     * @ORM\Column(type="string", length=255, nullable=true)
+     * @ORM\Column(type="array", nullable=true)
      */
-    private $allergies;
+    private $allergies = [];
 
     /**
      * @ORM\Column(type="float", nullable=true)
@@ -150,12 +150,12 @@ class Plat
         }
     }
 
-    public function getAllergies(): ?string
+    public function getAllergies(): ?array
     {
         return $this->allergies;
     }
 
-    public function setAllergies(?string $allergies): self
+    public function setAllergies(?array $allergies): self
     {
         $this->allergies = $allergies;
 

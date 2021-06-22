@@ -31,7 +31,7 @@ class PlatCrudController extends AbstractCrudController
                     'allergie 1' => 'allergie_1',
                     'allergie 2' => 'allergie_2',
                 ]
-            ),
+            )->setFormTypeOptions(['multiple' => true]),
         ];
         if ($pageName == Crud::PAGE_DETAIL) {
             $fields[] = VichImageField::new('nomFichierOriginal', 'Image');
