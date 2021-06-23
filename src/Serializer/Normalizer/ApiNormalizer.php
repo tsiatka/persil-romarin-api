@@ -44,6 +44,9 @@ final class ApiNormalizer implements NormalizerInterface, DenormalizerInterface,
           $data['placeholders'][$i] = $placeholder->getContenu();
         }
       }
+      if ($object->getData()) {
+        $data['dataName'] = $object->getData()->getNomData();
+      }
       foreach ($object->getChoice() as $i => $choice) {
         if ($choice->getNextStep()) {
           $data['choices'][$i]['nextStep'] = $choice->getNextStep()->getOrdre();

@@ -17,13 +17,13 @@ class QuestionChoiceType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('nextStep', EntityType::class, ['class' => Question::class, 'required' => true])
+            ->add('nextStep', EntityType::class, ['label' => 'Question suivante', 'class' => Question::class, 'required' => true])
             ->add('label', TextType::class, ['required' => false])
             ->add('description', TextType::class, ['required' => false])
             ->add('fichier', VichFileType::class, [
                 'label' => 'Image',
                 'required' => false,
-                'allow_delete' => false,
+                'allow_delete' => true,
                 'download_label' => true,
                 'download_uri' => true,
             ]);

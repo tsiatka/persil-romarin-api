@@ -51,17 +51,17 @@ class QuestionCrudController extends AbstractCrudController
             IntegerField::new('ordre', 'Ordre')->setFormTypeOptions(['attr' => ['min' => 1]])->setHelp('Position de la question dans le Quiz'),
             BooleanField::new('requis', 'Obligatoire')->setFormTypeOptionIfNotSet('label_attr.class', 'switch-custom')->setHelp('Question obligatoire ou facultative dans le Quiz'),
             BooleanField::new('progress', 'ProgressBar')->setFormTypeOptionIfNotSet('label_attr.class', 'switch-custom')->setHelp('Si cochée, cette question fera avancer la barre de progression du Quiz'),
-            TextField::new('dataName', 'Id')->setHelp('Identifiant de la question, nécessaire pour récupérer les données')->setFormTypeOptions([
-                'required' => true
-            ]),
+            AssociationField::new('data', 'Id')->setHelp('Identifiant de la question, nécessaire pour récupérer les données')->setFormTypeOptions([
+                'by_reference' => true,
+            ])->autocomplete()->setCrudController(DataCrudController::class),
             TextField::new('label', 'Label')->setHelp('Intitulé de la question'),
             TextareaField::new('description', 'Description')->setHelp('Intitulé de la question'),
             ChoiceField::new('type', 'Type de question')->renderAsNativeWidget(true)->setChoices(
                 [
                     'Bloc' => 'block',
-                    'Bloc4' => 'block4',
-                    'Bloc6' => 'block6',
-                    'Bloc16' => 'block16',
+                    'Bloc de 4' => 'block4',
+                    'Bloc de 6' => 'block6',
+                    'Bloc de 16' => 'block16',
                     'Message à afficher' => 'text',
                     'Select' => 'select',
                     'Email' => 'email',
@@ -79,10 +79,10 @@ class QuestionCrudController extends AbstractCrudController
         if ($pageName == Crud::PAGE_NEW) {
             $fields[] = CollectionField::new('placeholders', 'Placeholders')->setEntryIsComplex(true)->setFormTypeOptions([
                 "allow_delete" => true, 'required' => true,
-            ])->setEntryType(QuestionChoiceType::class)->onlyWhenCreating();
+            ])->setEntryType(PlaceholderType::class)->onlyWhenCreating();
             $fields[] = CollectionField::new('choice', 'Choix de réponses')->setEntryIsComplex(true)->setFormTypeOptions([
                 "allow_delete" => true, 'required' => true,
-            ])->setEntryType(PlaceholderType::class)->onlyWhenCreating()->setHelp('Il est nécessaire de renseigner la question suivante');
+            ])->setEntryType(QuestionChoiceType::class)->onlyWhenCreating()->setHelp('Il est nécessaire de renseigner la question suivante');
         }
         if ($pageName == Crud::PAGE_EDIT) {
             $fields[] = CollectionField::new('placeholders', 'Placeholders')->setEntryIsComplex(true)->setFormTypeOptions([

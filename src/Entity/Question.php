@@ -53,11 +53,6 @@ class Question
     private $choice;
 
     /**
-     * @ORM\OneToOne(targetEntity=Data::class, mappedBy="question", cascade={"persist", "remove"})
-     */
-    private $data;
-
-    /**
      * @Groups({"choice:read", "choice:write"})
      * @ORM\Column(type="boolean", nullable=true)
      */
@@ -80,10 +75,9 @@ class Question
     private $placeholders;
 
     /**
-     * @Groups({"choice:read", "choice:write"})
-     * @ORM\Column(type="string", length=255, nullable=true)
+     * @ORM\OneToOne(targetEntity=Data::class, mappedBy="question", cascade={"remove"})
      */
-    private $dataName;
+    private $data;
 
     public function __construct()
     {
@@ -166,23 +160,6 @@ class Question
         return $this;
     }
 
-    public function getData(): ?Data
-    {
-        return $this->data;
-    }
-
-    public function setData(Data $data): self
-    {
-        // set the owning side of the relation if necessary
-        if ($data->getQuestion() !== $this) {
-            $data->setQuestion($this);
-        }
-
-        $this->data = $data;
-
-        return $this;
-    }
-
     public function getRequis(): ?bool
     {
         return $this->requis;
@@ -249,14 +226,24 @@ class Question
         return $this;
     }
 
-    public function getDataName(): ?string
+    public function getData(): ?Data
     {
-        return $this->dataName;
+        return $this->data;
     }
 
-    public function setDataName(?string $dataName): self
+    public function setData(?Data $data): self
     {
-        $this->dataName = $dataName;
+        // unset the owning side of the relation if necessary
+        if ($data === null && $this->data !== null) {
+            $this->data->setQuestion(null);
+        }
+
+        // set the owning side of the relation if necessary
+        if ($data !== null && $data->getQuestion() !== $this) {
+            $data->setQuestion($this);
+        }
+
+        $this->data = $data;
 
         return $this;
     }

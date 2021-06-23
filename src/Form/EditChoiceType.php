@@ -23,7 +23,7 @@ class EditChoiceType extends AbstractType
             ->add('fichier', VichFileType::class, [
                 'label' => 'Image',
                 'required' => false,
-                'allow_delete' => false,
+                'allow_delete' => true,
                 'download_label' => true,
                 'download_uri' => true,
             ]);

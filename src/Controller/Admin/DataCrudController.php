@@ -31,7 +31,9 @@ class DataCrudController extends AbstractCrudController
     {
         return [
             TextField::new('nom_data'),
-            AssociationField::new('question'),
+            AssociationField::new('question')->hideOnForm()->setFormTypeOptions([
+                'by_reference' => false
+            ]),
         ];
     }
 }

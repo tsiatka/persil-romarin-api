@@ -36,7 +36,7 @@ class Data
 
     /**
      * @ORM\OneToOne(targetEntity=Question::class, inversedBy="data", cascade={"persist", "remove"})
-     * @ORM\JoinColumn(nullable=false)
+     * @ORM\JoinColumn(nullable=true)
      */
     private $question;
 
@@ -103,7 +103,7 @@ class Data
         return $this->question;
     }
 
-    public function setQuestion(Question $question): self
+    public function setQuestion(?Question $question): self
     {
         $this->question = $question;
 

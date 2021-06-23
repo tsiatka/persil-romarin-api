@@ -29,7 +29,8 @@ class DashboardController extends AbstractDashboardController
     {
         return Dashboard::new()
             ->setTitle('<img class="logoTitle" src="/images/logo_white.svg">')
-            ->setFaviconPath('/images/favicon.ico');
+            ->setFaviconPath('/images/favicon.ico')
+            ->disableUrlSignatures();
     }
 
     public function configureMenuItems(): iterable
@@ -44,6 +45,6 @@ class DashboardController extends AbstractDashboardController
     }
     public function configureAssets(): Assets
     {
-        return Assets::new()->addCssFile('build/base.css');
+        return Assets::new()->addCssFile('build/base.css')->addCssFile('//cdn.jsdelivr.net/npm/featherlight@1.7.14/release/featherlight.min.css')->addJsFile('//cdn.jsdelivr.net/npm/featherlight@1.7.14/release/featherlight.min.js');
     }
 }
