@@ -31,7 +31,6 @@ class Question
 
     /**
      * @ORM\Column(type="string", length=255)
-     * @Groups({"choice:read", "choice:write"})
      */
     private $label;
 

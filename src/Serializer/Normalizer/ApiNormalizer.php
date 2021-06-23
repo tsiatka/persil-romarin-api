@@ -39,6 +39,7 @@ final class ApiNormalizer implements NormalizerInterface, DenormalizerInterface,
 
     $data = $this->decoratedNormalizer->normalize($object, $format, $context);
     if (is_array($data) && $object instanceof Question) {
+      $data['question'] = $object->getLabel();
       foreach ($object->getPlaceholders() as $i => $placeholder) {
         if ($placeholder->getContenu()) {
           $data['placeholders'][$i] = $placeholder->getContenu();
