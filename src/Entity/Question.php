@@ -64,6 +64,7 @@ class Question
     private $description;
 
     /**
+     * @Groups({"choice:read", "choice:write"})
      * @ORM\Column(type="boolean", nullable=true)
      */
     private $progress;
