@@ -8,6 +8,8 @@ use Symfony\Component\Serializer\Normalizer\DenormalizerInterface;
 use Symfony\Component\Serializer\Normalizer\NormalizerInterface;
 use Doctrine\ORM\EntityManagerInterface;
 use ApiPlatform\Core\Api\IriConverterInterface;
+use App\Entity\Caracteristique;
+use App\Entity\Data;
 use App\Entity\Question;
 
 final class ApiNormalizer implements NormalizerInterface, DenormalizerInterface, SerializerAwareInterface
@@ -31,7 +33,7 @@ final class ApiNormalizer implements NormalizerInterface, DenormalizerInterface,
 
   public function supportsDenormalization($data, $type, string $format = null)
   {
-    return $this->decorated->supportsDenormalization($data, $type, $format);
+    return $this->decoratedNormalizer->supportsDenormalization($data, $type, $format);
   }
 
   public function normalize($object, string $format = null, array $context = [])
@@ -68,7 +70,22 @@ final class ApiNormalizer implements NormalizerInterface, DenormalizerInterface,
 
   public function denormalize($data, $class, string $format = null, array $context = array())
   {
-    dd($data);
+    if (is_array($data) && $class == "App\Entity\Client") {
+      /*foreach ($data as $key => $value) {
+        $dataEntity =  $this->em->getRepository(Data::class)->findOneBy([
+          'nom_data' => $key
+        ]);
+        if ($dataEntity) {
+          $newCara = new Caracteristique();
+          $newCara->setContenu($value);
+          $newCara->setData($dataEntity);
+          $this->em->persist($newCara);
+          $this->em->flush();
+        }
+      }*/
+      $data['dataRaw'] = $data;
+    }
+
     return $this->decoratedNormalizer->denormalize($data, $class, $format, $context);
   }
 
@@ -77,9 +94,5 @@ final class ApiNormalizer implements NormalizerInterface, DenormalizerInterface,
     if ($this->decoratedNormalizer instanceof SerializerAwareInterface) {
       $this->decoratedNormalizer->setSerializer($serializer);
     }
-  }
-
-  private function createPlayer($identifier)
-  {
   }
 }

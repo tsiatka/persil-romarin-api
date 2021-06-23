@@ -21,13 +21,13 @@ class Caracteristique
     private $id;
 
     /**
-     * @ORM\ManyToOne(targetEntity=Client::class, inversedBy="caracteristiques")
+     * @ORM\ManyToOne(targetEntity=Client::class, inversedBy="caracteristiques", cascade={"persist"})
      * @ORM\JoinColumn(nullable=false)
      */
     private $client;
 
     /**
-     * @ORM\ManyToOne(targetEntity=Data::class, inversedBy="caracteristiques")
+     * @ORM\ManyToOne(targetEntity=Data::class, inversedBy="caracteristiques", cascade={"persist"})
      * @Groups({"caract:read", "caract:write"})
      * @ORM\JoinColumn(nullable=false)
      */

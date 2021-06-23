@@ -38,6 +38,12 @@ class Client
      */
     private $caracteristiques;
 
+    /**
+     * @ORM\Column(type="array", nullable=true)
+     * @Groups({"caract:read", "caract:write"})
+     */
+    private $dataRaw = [];
+
     public function __construct()
     {
         $this->datas = new ArrayCollection();
@@ -87,6 +93,18 @@ class Client
                 $caracteristique->setClient(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getDataRaw(): ?array
+    {
+        return $this->dataRaw;
+    }
+
+    public function setDataRaw(?array $dataRaw): self
+    {
+        $this->dataRaw = $dataRaw;
 
         return $this;
     }
