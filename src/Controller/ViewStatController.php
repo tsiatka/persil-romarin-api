@@ -27,10 +27,15 @@ class ViewStatController extends AbstractController
     public function index(int $id): Response
     {
 
-
         $data = $this->em->getRepository(Data::class)->findOneBy(["id" => $id]);
         $dataName = $data->getNomData();
         $caracteristiques = $data->getCaracteristiques();
+
+        if ($dataName === "taillePoids_kg" || $dataName === "taillePoids_cm") {
+            $questionType = "type2";
+        } else {
+            $questionType = $data->getQuestion()->getType();
+        }
 
         $countData = [];
         foreach ($caracteristiques as $caracteristique) {
@@ -47,9 +52,13 @@ class ViewStatController extends AbstractController
         $pieChart->getData()->setArrayToDataTable(
             $stats
         );
+
         return $this->render('view_stat/index.html.twig', [
+            'data' => $data,
+            'questionType' => $questionType,
             'dataName' => $dataName,
             'pieChart' => $pieChart,
+            'caracteristiques' => $caracteristiques
         ]);
     }
 }

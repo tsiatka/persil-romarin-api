@@ -5,6 +5,7 @@
                                 <h4>{{item.label}}</h4>
                                 <p>{{item.description}}</p>
                                 <img class="img-fluid" target="_blank" src="{{ vich_uploader_asset(item, 'fichier') }}">
+								<p>Question suivante : <a href="{{ ea_url().setController('App\\Controller\\Admin\\QuestionCrudController').setAction('detail').setEntityId(item.id)}}">{{item.nextStep}}</a></p>
 							</blockquote>
                             <div class="action-choices">
 								<a class="btn" href="{{ ea_url().setController('App\\Controller\\Admin\\ChoiceCrudController').setAction('edit').setEntityId(item.id)}}">

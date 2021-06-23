@@ -1,9 +1,27 @@
 {% extends '@!EasyAdmin/page/content.html.twig' %}
-{% block page_title %}{{dataName}}{% endblock %}
+{% block page_title %}Statistiques de : {{dataName}}{% endblock %}
 
 {% block main %}
+{% if (questionType == "block") or (questionType == "block4") or (questionType == "block6") or (questionType == "block16") %}
 <div id="div_chart"></div>
 <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
 <script type="text/javascript">
 		{{ gc_draw(pieChart, 'div_chart') }}</script>
+{% else %}
+<table class="table">
+
+<thead>
+    <tr>
+      <th scope="col">Réponses</th>
+    </tr>
+  </thead>
+  <tbody>
+ 	{% for caracteristique in caracteristiques %}
+    <tr>
+      <td>{{caracteristique.contenu}}</td>
+    </tr>
+    {% endfor %}
+	</tbody>
+	</table>
+{% endif %}
 {% endblock %}

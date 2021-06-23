@@ -1,0 +1,18 @@
+<table class="table">
+  <thead>
+    <tr>
+      <th scope="col">Nom de la data</th>
+      <th scope="col">Contenu</th>
+      <th scope="col"></th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for item in field.value %}
+    <tr>
+      <td>{{item.data}}</td>
+      <td>{{item.contenu}}</td>
+      <td><a class="action-viewStat" href="{{ ea_url().setRoute('view_stat', { id: item.data.id }) }}" data-action-name="viewStat"><i class="action-icon fa fa-chart-pie"></i> Stats de la data</a></td>
+    </tr>
+    {% endfor %}
+    </tbody>
+</table>
