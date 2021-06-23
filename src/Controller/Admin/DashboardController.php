@@ -29,7 +29,7 @@ class DashboardController extends AbstractDashboardController
     {
         return Dashboard::new()
             ->setTitle('<img class="logoTitle" src="/images/logo_white.svg">')
-            ->setFaviconPath('/images/favicon.ico')
+            ->setFaviconPath('/images/favicon.png')
             ->disableUrlSignatures();
     }
 

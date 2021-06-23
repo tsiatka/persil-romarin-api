@@ -68,6 +68,7 @@ final class ApiNormalizer implements NormalizerInterface, DenormalizerInterface,
 
   public function denormalize($data, $class, string $format = null, array $context = array())
   {
+    dd($data);
     return $this->decoratedNormalizer->denormalize($data, $class, $format, $context);
   }
 
