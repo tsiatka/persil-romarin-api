@@ -61,7 +61,7 @@ class QuestionCrudController extends AbstractCrudController
                     'Bloc' => 'block',
                     'Bloc de 4' => 'block4',
                     'Bloc de 6' => 'block6',
-                    'Bloc de 16' => 'block16',
+                    'Bloc de 12' => 'block16',
                     'Message à afficher' => 'text',
                     'Select' => 'select',
                     'Email' => 'email',
