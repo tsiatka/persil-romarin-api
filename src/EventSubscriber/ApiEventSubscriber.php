@@ -32,37 +32,17 @@ final class ApiEventSubscriber implements EventSubscriberInterface
     {
         return [
             KernelEvents::VIEW => ['createClient', EventPriorities::PRE_WRITE],
-            KernelEvents::VIEW => ['sendMail', EventPriorities::POST_WRITE],
         ];
-    }
-    public function sendMail(ViewEvent $event)
-    {
-        $client = $event->getControllerResult();
-        $method = $event->getRequest()->getMethod();
-
-        if (
-            $client instanceof Client
-            && Request::METHOD_POST === $method
-        ) {
-            $email = (new Email())
-                ->from('tom.siatka2@gmail.com')
-                ->to($client->getEmail())
-                ->subject('Merci d\'avoir participé au Quiz')
-                ->html('<p>Vous recevrez bientôt votre code promo !</p>');
-
-            $this->mailer->send($email);
-        }
     }
     public function createClient(ViewEvent $event): void
     {
         $client = $event->getControllerResult();
         $method = $event->getRequest()->getMethod();
-
         if (!$client instanceof Client || Request::METHOD_POST !== $method) {
             return;
         }
         foreach ($client->getDataRaw() as $key => $value) {
-            if (strpos($key, '_') !== false) {
+            /* if (strpos($key, '_') !== false) {
                 $realKey = explode("_", $key);
                 $dataEntity =  $this->em->getRepository(Data::class)->findOneBy([
                     'nom_data' => $realKey[0]
@@ -84,7 +64,7 @@ final class ApiEventSubscriber implements EventSubscriberInterface
                         }
                     }
                 }
-            }
+            }*/
             $dataEntity =  $this->em->getRepository(Data::class)->findOneBy([
                 'nom_data' => $key
             ]);
@@ -96,6 +76,13 @@ final class ApiEventSubscriber implements EventSubscriberInterface
                 $this->em->persist($newCara);
                 $this->em->flush();
             }
+            $email = (new Email())
+                ->from('tom.siatka2@gmail.com')
+                ->to($client->getEmail())
+                ->subject('Merci d\'avoir participé au Quiz')
+                ->html('<p>Vous recevrez bientôt votre code promo !</p>');
+
+            $this->mailer->send($email);
         }
     }
 }
