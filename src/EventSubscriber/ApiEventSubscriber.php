@@ -76,13 +76,13 @@ final class ApiEventSubscriber implements EventSubscriberInterface
                 $this->em->persist($newCara);
                 $this->em->flush();
             }
-            $email = (new Email())
-                ->from('tom.siatka2@gmail.com')
-                ->to($client->getEmail())
-                ->subject('Merci d\'avoir participé au Quiz')
-                ->html('<p>Vous recevrez bientôt votre code promo !</p>');
-
-            $this->mailer->send($email);
         }
+        $email = (new Email())
+            ->from('tom.siatka2@gmail.com')
+            ->to($client->getEmail())
+            ->subject('Merci d\'avoir participé au Quiz')
+            ->html('<p>Vous recevrez bientôt votre code promo !</p>');
+
+        $this->mailer->send($email);
     }
 }
