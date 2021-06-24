@@ -38,12 +38,12 @@ h6 {
   margin: 0px;
   width: 100%;
   grid-row-gap: 0px;
-  min-height: 100vh;
 }
 .main-sidebar {
   width: 225px;
   background-color: #15433d;
   padding-top: 16px;
+  min-height: 100vh;
 }
 #main-menu {
   display: flex;
@@ -152,4 +152,13 @@ header {
 }
 .content-header .page-actions .btn {
   margin-left: 25px;
+}
+#main-menu .menu .menu-item.active:not(.expanded) .menu-icon,
+#main-menu .menu .menu-item.active:not(.expanded) a {
+  color: white;
+}
+#main-menu .menu .menu-item.active:not(.expanded) a {
+  background-color: #ffffff3d;
+  border-radius: 10px;
+  padding: 7px;
 }

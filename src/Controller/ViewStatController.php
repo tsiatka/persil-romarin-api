@@ -30,10 +30,14 @@ class ViewStatController extends AbstractController
         $data = $this->em->getRepository(Data::class)->findOneBy(["id" => $id]);
         $dataName = $data->getNomData();
         $caracteristiques = $data->getCaracteristiques();
-
-        if ($dataName === "taillePoids_kg" || $dataName === "taillePoids_cm") {
+        if ($dataName === "taillePoids_kg") {
             $questionType = "type2";
+            $question = "Quell est votre poids actuel ?";
+        } elseif ($dataName === "taillePoids_cm") {
+            $questionType = "type2";
+            $question = "Quell est votre taille actuelle ?";
         } else {
+            $question = $data->getQuestion();
             $questionType = $data->getQuestion()->getType();
         }
 
@@ -55,6 +59,7 @@ class ViewStatController extends AbstractController
 
         return $this->render('view_stat/index.html.twig', [
             'data' => $data,
+            'question' => $question,
             'questionType' => $questionType,
             'dataName' => $dataName,
             'pieChart' => $pieChart,
